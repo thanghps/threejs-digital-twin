@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Digital Twin</title>
+<meta name="description" content="Three.js digital-twin demo: an 8-floor office building with live simulated sensor data (temperature, CO2, occupancy), exploded floors, room picking and GPU instancing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="app">
+  <canvas id="scene"></canvas>
+
+  <aside id="panel">
+    <header>
+      <div class="brand"><span class="dot"></span>Digital Twin</div>
+      <h1>Office Tower · 8 floors</h1>
+      <p class="sub">Live building telemetry in the browser, rendered with Three.js.</p>
+      <button id="collapse" class="icon-btn" aria-label="Toggle panel">▾</button>
+    </header>
+
+    <div class="body">
+      <section>
+        <label class="lbl">Color rooms by</label>
+        <div class="seg" id="metric">
+          <button data-m="temp" class="on">Temperature</button>
+          <button data-m="co2">CO₂</button>
+          <button data-m="occ">Occupancy</button>
+        </div>
+        <div class="legend"><div id="legend-bar"></div><div id="legend-ticks"></div></div>
+      </section>
+
+      <section class="row2">
+        <div>
+          <label class="lbl" for="floor">Floor</label>
+          <select id="floor"></select>
+        </div>
+        <div>
+          <label class="lbl" for="explode">Explode <span id="explode-v">0 m</span></label>
+          <input id="explode" type="range" min="0" max="10" step="0.1" value="0">
+        </div>
+      </section>
+
+      <section class="row-btns">
+        <button id="live" class="btn on">● Live</button>
+        <button id="reset" class="btn">Reset view</button>
+        <span id="clock" class="clock">--:--</span>
+      </section>
+
+      <section>
+        <label class="lbl">Alerts <span id="alert-count" class="badge">0</span></label>
+        <ul id="alerts"></ul>
+      </section>
+    </div>
+  </aside>
+
+  <div id="stats">
+    <div><b id="fps">0</b> fps</div>
+    <div><b id="calls">0</b> draw calls</div>
+    <div><b id="inst">0</b> instances</div>
+    <div><b id="tris">0</b> triangles</div>
+  </div>
+
+  <div id="info" hidden>
+    <button id="info-close" class="icon-btn" aria-label="Close">✕</button>
+    <div class="kicker" id="info-type"></div>
+    <h2 id="info-name"></h2>
+    <div class="metrics">
+      <div><span>Temperature</span><b id="i-temp"></b></div>
+      <div><span>CO₂</span><b id="i-co2"></b></div>
+      <div><span>People</span><b id="i-occ"></b></div>
+      <div><span>Area</span><b id="i-area"></b></div>
+    </div>
+    <div class="spark-h"><span id="spark-label"></span><span class="muted">last 60 readings</span></div>
+    <canvas id="spark"></canvas>
+    <div id="info-flag" class="flag" hidden></div>
+  </div>
+
+  <div id="tip" hidden></div>
+  <div id="hint">Drag to orbit · Scroll to zoom · Click a room</div>
+  <div id="credit">Simulated data · Three.js r160 · built by Thang Dao</div>
+</div>
+<script type="module" src="main.js"></script>
+</body>
+</html>
