@@ -2,7 +2,7 @@
 
 An interactive digital twin of an 8-floor office tower, running entirely in the browser. Each room is colored by live sensor data (temperature, CO₂, occupancy). You can explode the floors, isolate a level, click any room for its history, and jump to rooms that raise alerts.
 
-**Live demo:** _add your GitHub Pages link here_
+**Live demo:** https://thanghps.github.io/threejs-digital-twin/
 
 ![Overview](screenshots/overview.png)
 
